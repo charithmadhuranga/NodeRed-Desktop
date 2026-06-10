@@ -254,13 +254,22 @@ class BaseApplication {
     this.mainWindow = new CustomBrowserWindow(options, this.loadingURL);
   }
 
+  private isValidFlowFile(filePath: string): boolean {
+    if (!filePath || typeof filePath !== "string") return false;
+    if (!filePath.endsWith(".json")) return false;
+    const appPath = app.isPackaged ? app.getAppPath() : "";
+    if (appPath && filePath.startsWith(appPath)) return false;
+    if (filePath.includes("node_modules")) return false;
+    return fs.existsSync(filePath);
+  }
+
   private getStartFlow(): string {
     const firstArg = app.isPackaged ? 1 : 2;
     const args = process.argv[firstArg];
-    if (args && fs.existsSync(args)) return args;
+    if (this.isValidFlowFile(args)) return args;
     if (this.config.data.openLastFile) {
       const lastFile = this.config.data.recentFiles[0];
-      if (fs.existsSync(lastFile)) return lastFile;
+      if (this.isValidFlowFile(lastFile)) return lastFile;
     }
     return this.fileManager.createTmp();
   }
@@ -749,6 +758,12 @@ class BaseApplication {
 
 process.on("unhandledRejection", (reason) => {
   log.error("[unhandledRejection]", reason);
+});
+
+process.on("warning", (warning) => {
+  if (warning.name === "DeprecationWarning" && (warning as any).code === "DEP0180") {
+    return;
+  }
 });
 
 const gotLock = app.requestSingleInstanceLock();

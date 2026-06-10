@@ -51,6 +51,7 @@ const newExec = {
             options.detached = false;
             options.silent = true;
         }
+        options = Object.assign({}, options, { env: Object.assign({}, process.env, (options && options.env) || {}, { ELECTRON_RUN_AS_NODE: "1" }) });
 
         emit && events.emit("event-log", {ts: Date.now(),id:invocationId,payload:{ts: Date.now(),data:npmCliCommand+" "+args.join(" ")}});
 

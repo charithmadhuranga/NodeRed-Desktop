@@ -8,6 +8,7 @@ asar: true
 asarUnpack:
   - "node_modules/@node-red/editor-client/public/**"
   - "node_modules/jquery-validation/dist/**"
+  - "node_modules/npm/**"
 files:
 - "**/*"
 - from: "node_modules/@node-red/nodes/examples"
