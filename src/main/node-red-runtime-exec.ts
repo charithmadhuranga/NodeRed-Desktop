@@ -1,10 +1,10 @@
 import { EventEmitter } from "events";
 import { AppStatus } from "./main";
+import crypto from "crypto";
 
 // based on @node-red/runtime/lib/exec.js
 
 const child_process = require('child_process');
-const { util } = require('@node-red/util');
 const path = require('path');
 
 type RuntimeExec = {
@@ -45,7 +45,7 @@ const newExec = {
         if (!command.includes('npm')) {
             return origExec.run(command,args,options,emit);
         }
-        var invocationId = util.generateId();
+        var invocationId = crypto.randomUUID();
         const npmCliCommand= path.join(__dirname, "..", "node_modules", "npm", "bin", "npm-cli.js");
         if (options) {
             options.detached = false;

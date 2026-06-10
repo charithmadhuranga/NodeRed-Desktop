@@ -747,4 +747,17 @@ class BaseApplication {
   }
 }
 
+process.on("unhandledRejection", (reason) => {
+  log.error("[unhandledRejection]", reason);
+});
+
+const gotLock = app.requestSingleInstanceLock();
+if (!gotLock) {
+  app.quit();
+} else {
+  app.on("second-instance", () => {
+    appEventBus.emit("browser:focus");
+  });
+}
+
 const main: BaseApplication = new BaseApplication(app);

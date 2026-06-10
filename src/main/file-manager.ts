@@ -23,14 +23,20 @@ export class FileManager {
   }
 
   private setupUserDir(config: ConfigManager) {
+    let dir: string;
     try {
       if (!fs.existsSync(config.data.userDir)) fs.mkdirSync(config.data.userDir);
-      return config.data.userDir;
+      dir = config.data.userDir;
     } catch (err) {
       const destdir = path.join(os.homedir(), "." + config.getName());
       if (!fs.existsSync(destdir)) fs.mkdirSync(destdir);
-      return destdir;
+      dir = destdir;
     }
+    const pkgPath = path.join(dir, "package.json");
+    if (!fs.existsSync(pkgPath)) {
+      fs.writeFileSync(pkgPath, JSON.stringify({name: config.getName(), description: "", version: "1.0.0", dependencies: {}}, null, 2));
+    }
+    return dir;
   }
 
   public getUserDir() {

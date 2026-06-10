@@ -22,15 +22,32 @@ window.NRDApi.onEditorDeploy((event, message) => {
 });
 
 window.NRDApi.onEditorStart((event, message) => {
-  var observer  = new MutationObserver((mutationRecords, observer) => {
-    var target = $("#red-ui-tab-debug-link-button");
-    if (target.length){
-      observer.disconnect();
-      target.click();
-      window.NRDApi.sendEditorStarted();
+  var openDebug = function() {
+    // NR5 API: RED.sidebar.show("debug")
+    if (typeof RED.sidebar !== 'undefined' && typeof RED.sidebar.show === 'function') {
+      RED.sidebar.show("debug");
+      return true;
     }
-  });
-  observer.observe(document, {childList:true, subtree: true});
+    // NR4 fallback: click debug tab button
+    var target = $("#red-ui-tab-debug-link-button");
+    if (target.length) {
+      target.click();
+      return true;
+    }
+    return false;
+  };
+
+  if (openDebug()) {
+    window.NRDApi.sendEditorStarted();
+  } else {
+    var observer = new MutationObserver(function(mutationRecords, observer) {
+      if (openDebug()) {
+        observer.disconnect();
+        window.NRDApi.sendEditorStarted();
+      }
+    });
+    observer.observe(document, {childList: true, subtree: true});
+  }
 });
 
 window.NRDApi.onShadeShow((event, message) => {

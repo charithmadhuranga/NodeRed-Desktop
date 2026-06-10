@@ -7,6 +7,10 @@ ul.red-ui-header-toolbar.hide {
     -webkit-app-region: no-drag;
 }
 
+div#red-ui-header .red-ui-header-toolbar {
+    -webkit-app-region: no-drag;
+}
+
 div#nrd-shade {
     position: absolute;
     top: 0;
