@@ -6,6 +6,9 @@ on:
       tags:
         description: 'Test scenario tags'
 
+permissions:
+  contents: write
+
 jobs:
   build_on_mac:
     runs-on: macos-latest

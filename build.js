@@ -31,7 +31,7 @@ async function copyFiles() {
 // }
 
 async function build() {
-  const platform = (process.platform === "darwin") ? Platform.MAC : Platform.WINDOWS;
+  const platform = process.platform === "darwin" ? Platform.MAC : process.platform === "win32" ? Platform.WINDOWS : Platform.LINUX;
   return await builder.build({
     targets: platform.createTarget(),
     config
