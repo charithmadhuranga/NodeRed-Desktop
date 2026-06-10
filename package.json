@@ -3,6 +3,10 @@
   "productName": "Node-RED-Desktop",
   "version": "5.0.0-nr5.0.0",
   "description": "Node-RED Desktop",
+  "author": {
+    "name": "charithmadhuranga",
+    "email": "nikhuge@gmail.com"
+  },
   "main": "main/main.js",
   "scripts": {
     "build": "tsc && node build.js",
