@@ -34,7 +34,7 @@ const macOS = process.platform === "darwin";
 
 const FILE_HISTORY_SIZE = 10;
 const HELP_NODERED_URL = "https://nodered.org/";
-const HELP_NODERED_DESKTOP_URL = "https://sakazuki.github.io/node-red-desktop/";
+const HELP_NODERED_DESKTOP_URL = "https://charithmadhuranga.github.io/NodeRed-Desktop/";
 const HELP_AUTHOR_URL = "https://node-red.exhands.org/";
 const NGROK_INSPECT_URL = "http://localhost:4040";
 

@@ -24,7 +24,7 @@ const IP_ALLOWS = ["127.0.0.1"];
 if (process.env.NRD_IP_ALLOWS) {
   IP_ALLOWS.push(...process.env.NRD_IP_ALLOWS.split(/,/))
 }
-const HELP_WEB_URL = "https://sakazuki.github.io/node-red-desktop/";
+const HELP_WEB_URL = "https://charithmadhuranga.github.io/NodeRed-Desktop/";
 export const NPM_COMMAND = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 
 export const DEFAULT_NODES_EXCLUDES = [
