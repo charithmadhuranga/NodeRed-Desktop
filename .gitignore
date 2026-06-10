@@ -38,3 +38,5 @@ node_modules
 
 log.txt
 release
+.DS_Store
+test-results/
