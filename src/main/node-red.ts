@@ -54,7 +54,6 @@ export class NodeREDApp {
     this.server = this.setupServer();
     this.listenIp = process.env.NRD_LISTEN_IP || process.env.LISTEN_IP || "127.0.0.1";
     this.listenPort = this.defineListenPort();
-    this.patchRuntimeExec();
     this.setupRED();
   }
 
@@ -267,11 +266,6 @@ export class NodeREDApp {
       );
     }
     this.app.use(this.settings.httpNodeRoot, RED.httpNode);
-  }
-
-  private patchRuntimeExec() {
-    newExec.init(RED.runtime._, this.status);
-    // runtime._.nodes.installerEnabled = () => { return true };
   }
 
   get exec() {
