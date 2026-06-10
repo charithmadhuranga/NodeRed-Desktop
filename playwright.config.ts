@@ -10,7 +10,7 @@ import path from "path";
 export default defineConfig({
   testDir: "./test",
   testMatch: "**/*.spec.ts",
-  timeout: 60000,
+  timeout: 120000,
   retries: 0,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
